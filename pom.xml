@@ -36,12 +36,6 @@
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-support</artifactId>
-      <version>${SeleniumVersion}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-firefox-driver</artifactId>
       <version>${SeleniumVersion}</version>
       <scope>compile</scope>
