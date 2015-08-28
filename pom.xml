@@ -1,12 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.mycore.common</groupId>
+  <parent>
+    <artifactId>mycore-parent</artifactId>
+    <groupId>org.mycore</groupId>
+    <version>27-SNAPSHOT</version>
+  </parent>
   <artifactId>selenium-utils</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
   <packaging>jar</packaging>
+  <url>http://www.mycore.de/generated/selenium-utils</url>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://mycore.atlassian.net/browse/SU</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/trunk</connection>
+    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/trunk</developerConnection>
+    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/trunk</url>
+  </scm>
+  <distributionManagement>
+    <site>
+      <id>MyCoRe HQ</id>
+      <name>MyCoRe HQ-sites</name>
+      <url>scp://server.mycore.de/mcr/mycore.de/generated/mycore-viewer</url>
+    </site>
+  </distributionManagement>
   <properties>
     <SeleniumVersion>2.47.1</SeleniumVersion>
   </properties>
