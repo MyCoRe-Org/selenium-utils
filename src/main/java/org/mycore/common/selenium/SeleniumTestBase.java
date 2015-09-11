@@ -2,6 +2,7 @@ package org.mycore.common.selenium;
 
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
@@ -11,6 +12,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class SeleniumTestBase {
 
@@ -116,4 +119,36 @@ public class SeleniumTestBase {
         this.testName = testName;
     }
 
+    public static String getBaseUrl(String baseURLPort) {
+        String canonicalHostName = null;
+        String hostName = System.getProperty("HostName", "localhost");
+        int baseUrlPort = Integer.parseInt(System.getProperty("BaseUrlPort", baseURLPort));
+
+        String driverURL = System.getProperty("RemoteDriverURL", null);
+        if (driverURL != null && System.getProperty("HostName", null) == null) {
+            if (canonicalHostName == null) {
+                LOGGER
+                    .info("test.remoteDriver.url is set but not test.remoteDriver.url. Try to detect hostname of this machine.");
+                try {
+                    URL url = new URL(driverURL);
+                    canonicalHostName = SeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
+                        .getCanonicalHostName();
+                    LOGGER.info("hostname is : " + canonicalHostName);
+
+                } catch (IOException e) {
+                    Assert.fail("could not detect hostname!");
+                }
+            }
+            hostName = canonicalHostName;
+        }
+
+        String BASE_URL;
+        try {
+            BASE_URL = new URL(System.getProperty("UrlScheme", "http://"), hostName, baseUrlPort, "").toString();
+        } catch (MalformedURLException e) {
+            BASE_URL = "http://" + hostName + ":" + baseUrlPort;
+        }
+
+        return BASE_URL;
+    }
 }
