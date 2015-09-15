@@ -119,10 +119,10 @@ public class SeleniumTestBase {
         this.testName = testName;
     }
 
-    public static String getBaseUrl(String baseURLPort) {
+    public static String getBaseUrl(String baseURLDefaultPort) {
         String canonicalHostName = null;
         String hostName = System.getProperty("HostName", "localhost");
-        int baseUrlPort = Integer.parseInt(System.getProperty("BaseUrlPort", baseURLPort));
+        int baseUrlPort = Integer.parseInt(System.getProperty("BaseUrlPort", baseURLDefaultPort));
 
         String driverURL = System.getProperty("RemoteDriverURL", null);
         if (driverURL != null && System.getProperty("HostName", null) == null) {
