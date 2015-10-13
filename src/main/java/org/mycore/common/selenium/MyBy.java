@@ -13,6 +13,16 @@ public class MyBy {
         return By.xpath(linkToXPathExpression(linkText));
     }
 
+    public static By byLinkContainsIgnoreCSS(String contains) {
+        return By.xpath(linkContainsToXPathExpression(contains));
+    }
+
+    private static String linkContainsToXPathExpression(String contains) {
+        return MessageFormat.format(
+            "//a[contains(normalize-space(text())=\"{0}\")] | //a//*[contains(normalize-space(text())=\"{0}\")]",
+            contains);
+    }
+
     private static String linkToXPathExpression(String linkText) {
         return MessageFormat.format("//a[normalize-space(text())=\"{0}\"] | //a//*[normalize-space(text())=\"{0}\"]",
             linkText);
