@@ -18,9 +18,7 @@ public class MyBy {
     }
 
     private static String linkContainsToXPathExpression(String contains) {
-        return MessageFormat.format(
-            "//a[contains(normalize-space(text())=\"{0}\")] | //a//*[contains(normalize-space(text())=\"{0}\")]",
-            contains);
+        return MessageFormat.format("//a[contains(text()=\"{0}\")] | //a//*[contains(text()=\"{0}\")]", contains);
     }
 
     private static String linkToXPathExpression(String linkText) {
