@@ -1,13 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>mycore-parent</artifactId>
     <groupId>org.mycore</groupId>
-    <version>27-SNAPSHOT</version>
+    <version>27</version>
   </parent>
   <artifactId>selenium-utils</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
   <packaging>jar</packaging>
@@ -17,9 +16,9 @@
     <url>https://mycore.atlassian.net/browse/SU</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/trunk</connection>
-    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/trunk</developerConnection>
-    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/trunk</url>
+    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/tags/selenium-utils-0.1</connection>
+    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/tags/selenium-utils-0.1</developerConnection>
+    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/tags/selenium-utils-0.1</url>
   </scm>
   <distributionManagement>
     <site>
