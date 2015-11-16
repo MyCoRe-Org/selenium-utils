@@ -28,7 +28,7 @@
     </site>
   </distributionManagement>
   <properties>
-    <SeleniumVersion>2.47.1</SeleniumVersion>
+    <SeleniumVersion>2.48.2</SeleniumVersion>
   </properties>
   <dependencies>
     <dependency>
