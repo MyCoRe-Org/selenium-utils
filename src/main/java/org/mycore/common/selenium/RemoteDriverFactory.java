@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class RemoteDriverFactory extends DriverFactory {
 
-    public static final String DRIVER_URL_PROPERTY_NAME = "remoteDriverURL";
+    public static final String DRIVER_URL_PROPERTY_NAME = "RemoteDriverURL";
 
     private static final Logger LOGGER = Logger.getLogger(RemoteDriverFactory.class);
 

@@ -119,16 +119,16 @@ public class SeleniumTestBase {
         this.testName = testName;
     }
 
+    private static String canonicalHostName = null;
+
     public static String getBaseUrl(String baseURLDefaultPort) {
-        String canonicalHostName = null;
         String hostName = System.getProperty("HostName", "localhost");
         int baseUrlPort = Integer.parseInt(System.getProperty("BaseUrlPort", baseURLDefaultPort));
 
-        String driverURL = System.getProperty("RemoteDriverURL", null);
+        String driverURL = System.getProperty(RemoteDriverFactory.DRIVER_URL_PROPERTY_NAME, null);
         if (driverURL != null && System.getProperty("HostName", null) == null) {
             if (canonicalHostName == null) {
-                LOGGER
-                    .info("test.remoteDriver.url is set but not test.remoteDriver.url. Try to detect hostname of this machine.");
+                LOGGER.info("RemoteDriverURL is set but not HostName Try to detect hostname of this machine.");
                 try {
                     URL url = new URL(driverURL);
                     canonicalHostName = SeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
