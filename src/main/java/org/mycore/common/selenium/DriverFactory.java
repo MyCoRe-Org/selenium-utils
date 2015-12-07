@@ -1,11 +1,12 @@
 package org.mycore.common.selenium;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 public abstract class DriverFactory {
 
-    private static final Logger LOGGER = Logger.getLogger(DriverFactory.class);
+    private static final Logger LOGGER = LogManager.getLogger(DriverFactory.class);
 
     private static DriverFactory driverFactoryInstance = getFactory();
 

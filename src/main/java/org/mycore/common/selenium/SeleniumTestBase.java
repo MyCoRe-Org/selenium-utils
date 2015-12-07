@@ -1,6 +1,7 @@
 package org.mycore.common.selenium;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -17,7 +18,7 @@ import java.net.URL;
 
 public class SeleniumTestBase {
 
-    private static final Logger LOGGER = Logger.getLogger(SeleniumTestBase.class);
+    private static final Logger LOGGER = LogManager.getLogger(SeleniumTestBase.class);
 
     protected static WebDriver driver;
 

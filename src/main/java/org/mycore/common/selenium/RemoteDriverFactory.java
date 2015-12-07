@@ -1,6 +1,7 @@
 package org.mycore.common.selenium;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -14,7 +15,7 @@ public abstract class RemoteDriverFactory extends DriverFactory {
 
     public static final String DRIVER_URL_PROPERTY_NAME = "RemoteDriverURL";
 
-    private static final Logger LOGGER = Logger.getLogger(RemoteDriverFactory.class);
+    private static final Logger LOGGER = LogManager.getLogger(RemoteDriverFactory.class);
 
     public static final String DEFAULT_URL = "http://localhost:4444";
 
