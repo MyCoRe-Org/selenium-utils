@@ -28,6 +28,25 @@
       <url>scp://server.mycore.de/mcr/mycore.de/generated/selenium-utils</url>
     </site>
   </distributionManagement>
+  <repositories>
+    <repository>
+      <id>MyCoRe HQ</id>
+      <url>http://artifactory.mycore.de/mycore-releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>MyCoRe HQ Snapshots</id>
+      <url>http://artifactory.mycore.de/mycore-snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <properties>
     <SeleniumVersion>2.48.2</SeleniumVersion>
   </properties>
