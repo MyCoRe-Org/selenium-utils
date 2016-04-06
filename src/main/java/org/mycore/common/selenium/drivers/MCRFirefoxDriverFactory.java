@@ -1,4 +1,4 @@
-package org.mycore.common.selenium;
+package org.mycore.common.selenium.drivers;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-public class FirefoxDriverFactory extends DriverFactory {
+public class MCRFirefoxDriverFactory extends MCRDriverFactory {
 
     @Override
     public WebDriver getDriver() {

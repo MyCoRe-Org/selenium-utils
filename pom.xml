@@ -47,7 +47,7 @@
     </repository>
   </repositories>
   <properties>
-    <SeleniumVersion>2.48.2</SeleniumVersion>
+    <selenium.version>2.48.2</selenium.version>
   </properties>
   <dependencies>
     <dependency>
@@ -69,19 +69,25 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-remote-driver</artifactId>
-      <version>${SeleniumVersion}</version>
+      <version>${selenium.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-api</artifactId>
-      <version>${SeleniumVersion}</version>
+      <version>${selenium.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-support</artifactId>
+      <version>${selenium.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-firefox-driver</artifactId>
-      <version>${SeleniumVersion}</version>
+      <version>${selenium.version}</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

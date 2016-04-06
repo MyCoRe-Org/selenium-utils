@@ -1,5 +1,13 @@
 package org.mycore.common.selenium;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -8,19 +16,18 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.mycore.common.selenium.drivers.MCRDriverFactory;
+import org.mycore.common.selenium.drivers.MCRWebdriverWrapper;
+import org.mycore.common.selenium.drivers.MCRRemoteDriverFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+public class MCRSeleniumTestBase {
 
-public class SeleniumTestBase {
+    private static final Logger LOGGER = LogManager.getLogger(MCRSeleniumTestBase.class);
 
-    private static final Logger LOGGER = LogManager.getLogger(SeleniumTestBase.class);
-
-    protected static WebDriver driver;
+    protected static MCRWebdriverWrapper driver;
 
     private byte[] screenShot;
 
@@ -88,7 +95,7 @@ public class SeleniumTestBase {
     }
 
     public static void setUpDriver() {
-        setDriver(DriverFactory.getFactory().getDriver());
+        setDriver(new MCRWebdriverWrapper((RemoteWebDriver) MCRDriverFactory.getFactory().getDriver(), 30));
     }
 
     @AfterClass
@@ -96,11 +103,11 @@ public class SeleniumTestBase {
         driver.quit();
     }
 
-    public WebDriver getDriver() {
+    public MCRWebdriverWrapper getDriver() {
         return driver;
     }
 
-    public static void setDriver(WebDriver Driver) {
+    public static void setDriver(MCRWebdriverWrapper Driver) {
         driver = Driver;
     }
 
@@ -126,13 +133,13 @@ public class SeleniumTestBase {
         String hostName = System.getProperty("HostName", "localhost");
         int baseUrlPort = Integer.parseInt(System.getProperty("BaseUrlPort", baseURLDefaultPort));
 
-        String driverURL = System.getProperty(RemoteDriverFactory.DRIVER_URL_PROPERTY_NAME, null);
+        String driverURL = System.getProperty(MCRRemoteDriverFactory.DRIVER_URL_PROPERTY_NAME, null);
         if (driverURL != null && System.getProperty("HostName", null) == null) {
             if (canonicalHostName == null) {
                 LOGGER.info("RemoteDriverURL is set but not HostName Try to detect hostname of this machine.");
                 try {
                     URL url = new URL(driverURL);
-                    canonicalHostName = SeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
+                    canonicalHostName = MCRSeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
                         .getCanonicalHostName();
                     LOGGER.info("hostname is : " + canonicalHostName);
 

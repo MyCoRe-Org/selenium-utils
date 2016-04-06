@@ -1,4 +1,8 @@
-package org.mycore.common.selenium;
+package org.mycore.common.selenium.drivers;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,15 +11,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
-public abstract class RemoteDriverFactory extends DriverFactory {
+public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
 
     public static final String DRIVER_URL_PROPERTY_NAME = "RemoteDriverURL";
 
-    private static final Logger LOGGER = LogManager.getLogger(RemoteDriverFactory.class);
+    private static final Logger LOGGER = LogManager.getLogger(MCRRemoteDriverFactory.class);
 
     public static final String DEFAULT_URL = "http://localhost:4444";
 

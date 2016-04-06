@@ -1,14 +1,14 @@
-package org.mycore.common.selenium;
+package org.mycore.common.selenium.drivers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-public abstract class DriverFactory {
+public abstract class MCRDriverFactory {
 
-    private static final Logger LOGGER = LogManager.getLogger(DriverFactory.class);
+    private static final Logger LOGGER = LogManager.getLogger(MCRDriverFactory.class);
 
-    private static DriverFactory driverFactoryInstance = getFactory();
+    private static MCRDriverFactory driverFactoryInstance = getFactory();
 
     private static final String DRIVER_PROVIDER = "DriverProvider";
 
@@ -16,7 +16,7 @@ public abstract class DriverFactory {
 
     protected int dimY = Integer.parseInt(System.getProperty("dimY", "1024"));
 
-    public static DriverFactory getFactory() {
+    public static MCRDriverFactory getFactory() {
         if (driverFactoryInstance == null) {
             String driverName = System.getProperty("DriverProvider", null);
             LOGGER.info("Search for driver in env variables");
@@ -24,13 +24,13 @@ public abstract class DriverFactory {
             if (driverName != null) {
                 LOGGER.info("Driver found in env variable : " + driverName);
             } else {
-                driverName = System.getProperty(DRIVER_PROVIDER, "org.mycore.common.selenium.FirefoxDriverFactory");
+                driverName = System.getProperty(DRIVER_PROVIDER, "org.mycore.common.selenium.drivers.MCRFirefoxDriverFactory");
             }
             LOGGER.info("Load DriverProviderFactory!");
             try {
-                driverFactoryInstance = (DriverFactory) Class.forName(driverName).newInstance();
+                driverFactoryInstance = (MCRDriverFactory) Class.forName(driverName).newInstance();
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Error while getting driver!", e);
             }
         }
         return driverFactoryInstance;

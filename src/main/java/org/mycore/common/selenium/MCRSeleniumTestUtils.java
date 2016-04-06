@@ -12,7 +12,7 @@ import java.nio.channels.SocketChannel;
  * @author Sebastian Röher (basti890)
  *
  */
-public class SeleniumTestUtils {
+public class MCRSeleniumTestUtils {
     public static InetAddress getLocalAdress(String remoteHost, int port) throws IOException {
         InetSocketAddress socketAddr = new InetSocketAddress(remoteHost, port);
         SocketChannel socketChannel = SocketChannel.open(socketAddr);

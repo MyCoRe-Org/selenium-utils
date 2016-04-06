@@ -1,8 +1,8 @@
-package org.mycore.common.selenium;
+package org.mycore.common.selenium.drivers;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class RemoteFirefoxDriverFactory extends RemoteDriverFactory {
+public class MCRRemoteFirefoxDriverFactory extends MCRRemoteDriverFactory {
 
     @Override
     public DesiredCapabilities getCapabilities() {
