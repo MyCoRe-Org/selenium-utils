@@ -49,13 +49,16 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
     public WebElement waitAndFindElement(SearchContext ctx, By by) {
         return waitFor(() -> ctx.findElement(by));
     }
-    
+
     public List<WebElement> waitAndFindElements(By by) {
         return waitAnd(getDelegate()::findElements, by);
     }
 
     public List<WebElement> waitAndFindElements(SearchContext ctx, By by) {
-        return waitFor(() -> ctx.findElements(by));
+        return waitFor(() -> {
+            List<WebElement> results = ctx.findElements(by);
+            return results.isEmpty() ? null : results;
+        });
     }
 
 }
