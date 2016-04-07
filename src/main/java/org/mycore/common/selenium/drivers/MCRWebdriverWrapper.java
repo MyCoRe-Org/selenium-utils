@@ -4,6 +4,7 @@
 package org.mycore.common.selenium.drivers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -55,10 +56,9 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
     }
 
     public List<WebElement> waitAndFindElements(SearchContext ctx, By by) {
-        return waitFor(() -> {
-            List<WebElement> results = ctx.findElements(by);
-            return results.isEmpty() ? null : results;
-        });
+        return waitFor(() -> Optional.of(ctx.findElements(by))
+            .filter(l -> !l.isEmpty())
+            .orElse(null));
     }
 
 }
