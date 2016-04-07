@@ -57,7 +57,7 @@ public class MCRBy {
         if (linkText == null) {
             throw new IllegalArgumentException("Cannot find elements when link text is null.");
         }
-        return new MIRByPartialLinkText(linkText, true);
+        return new MIRByPartialLinkText(linkText, false);
     }
 
     protected static class MIRByLinkText extends By.ByXPath {
@@ -84,7 +84,7 @@ public class MCRBy {
 
         protected static String toXPathExpression(String linkText, boolean includeChilds) {
             if (includeChilds) {
-                return ".//a[contains(normalize-space(text()), '" + linkText + "')]  | //a//*[normalize-space(text())=\\\"{0}\\\"]";
+                return ".//a[contains(normalize-space(text()), '" + linkText + "')]  | //a//*[normalize-space(text())='" + linkText + "']";
             } else {
                 return ".//a[contains(normalize-space(text()), '" + linkText + "')]";
             }
