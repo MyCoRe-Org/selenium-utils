@@ -46,6 +46,13 @@ public class MCRBy {
         return partialLinkText(linkText, false);
     }
 
+    public static By partialText(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("Cannot find elements when text is null.");
+        }
+        return new MIRByPartialText("//*[contains(normalize-space(text()),\"{0}\")]");
+    }
+
     public static By partialLinkText(String linkText, boolean includeChilds) {
         if (linkText == null) {
             throw new IllegalArgumentException("Cannot find elements when link text is null.");
@@ -81,6 +88,20 @@ public class MCRBy {
             } else {
                 return ".//a[contains(normalize-space(text()), '" + linkText + "')]";
             }
+        }
+
+    }
+
+    protected static class MIRByPartialText extends By.ByXPath {
+
+        private static final long serialVersionUID = 1L;
+
+        public MIRByPartialText(String text) {
+            super(toXPathExpression(text));
+        }
+
+        protected static String toXPathExpression(String text) {
+            return "//*[contains(normalize-space(text()),'" + text + "')]";
         }
 
     }
