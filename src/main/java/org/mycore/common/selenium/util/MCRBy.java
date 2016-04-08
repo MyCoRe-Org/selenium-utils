@@ -50,7 +50,7 @@ public class MCRBy {
         if (text == null) {
             throw new IllegalArgumentException("Cannot find elements when text is null.");
         }
-        return new MIRByPartialText("//*[contains(normalize-space(text()),\"{0}\")]");
+        return new MIRByPartialText("//*[contains(normalize-space(text()),'" + text + "')]");
     }
 
     public static By partialLinkText(String linkText, boolean includeChilds) {
