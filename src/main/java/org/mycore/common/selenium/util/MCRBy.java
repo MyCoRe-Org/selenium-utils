@@ -39,7 +39,7 @@ public class MCRBy {
         if (linkText == null) {
             throw new IllegalArgumentException("Cannot find elements when link text is null.");
         }
-        return new MIRByLinkText(linkText);
+        return new MCRByLinkText(linkText);
     }
 
     public static By partialLinkText(String linkText) {
@@ -50,21 +50,21 @@ public class MCRBy {
         if (text == null) {
             throw new IllegalArgumentException("Cannot find elements when text is null.");
         }
-        return new MIRByPartialText(text);
+        return new MCRByPartialText(text);
     }
 
     public static By partialLinkText(String linkText, boolean includeChilds) {
         if (linkText == null) {
             throw new IllegalArgumentException("Cannot find elements when link text is null.");
         }
-        return new MIRByPartialLinkText(linkText, includeChilds);
+        return new MCRByPartialLinkText(linkText, includeChilds);
     }
 
-    protected static class MIRByLinkText extends By.ByXPath {
+    protected static class MCRByLinkText extends By.ByXPath {
 
         private static final long serialVersionUID = 1L;
 
-        public MIRByLinkText(String linkText) {
+        public MCRByLinkText(String linkText) {
             super(toXPathExpression(linkText));
         }
 
@@ -74,11 +74,11 @@ public class MCRBy {
 
     }
 
-    protected static class MIRByPartialLinkText extends By.ByXPath {
+    protected static class MCRByPartialLinkText extends By.ByXPath {
 
         private static final long serialVersionUID = 1L;
 
-        public MIRByPartialLinkText(String linkText, boolean includeChilds) {
+        public MCRByPartialLinkText(String linkText, boolean includeChilds) {
             super(toXPathExpression(linkText, includeChilds));
         }
 
@@ -92,11 +92,11 @@ public class MCRBy {
 
     }
 
-    protected static class MIRByPartialText extends By.ByXPath {
+    protected static class MCRByPartialText extends By.ByXPath {
 
         private static final long serialVersionUID = 1L;
 
-        public MIRByPartialText(String text) {
+        public MCRByPartialText(String text) {
             super(toXPathExpression(text));
         }
 
