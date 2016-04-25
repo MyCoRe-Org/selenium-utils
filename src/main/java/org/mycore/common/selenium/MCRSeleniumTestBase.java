@@ -17,10 +17,9 @@ import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.mycore.common.selenium.drivers.MCRDriverFactory;
-import org.mycore.common.selenium.drivers.MCRWebdriverWrapper;
 import org.mycore.common.selenium.drivers.MCRRemoteDriverFactory;
+import org.mycore.common.selenium.drivers.MCRWebdriverWrapper;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class MCRSeleniumTestBase {
@@ -114,9 +113,7 @@ public class MCRSeleniumTestBase {
     public void takeScreenshot() {
         sourceHTML = driver.getPageSource();
         testURL = driver.getCurrentUrl();
-        if (driver instanceof TakesScreenshot) {
-            screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        }
+        screenShot = driver.getScreenshotAs(OutputType.BYTES);
     }
 
     public String getTestName() {
