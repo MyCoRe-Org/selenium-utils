@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
@@ -31,6 +32,7 @@ public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
         }
         remoteDriver.manage().window().setSize(new Dimension(dimX, dimY));
         remoteDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        ((RemoteWebDriver) remoteDriver).setFileDetector(new LocalFileDetector());
         return remoteDriver;
     }
 
