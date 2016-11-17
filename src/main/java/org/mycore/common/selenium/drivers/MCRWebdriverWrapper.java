@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,9 +30,23 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         this.timeout = timeout;
     }
 
-    public <R> R waitAnd(Function<By, R> andThen, By by) {
+    public static ExpectedCondition<?> combine(By by,
+        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+        return ExpectedConditions.and(Stream.of(conditions)
+            .map(c -> c.apply(by))
+            .toArray(ExpectedCondition[]::new));
+    }
+
+    public <R> R waitAnd(Function<By, R> andThen, By by,
+        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
         WebDriverWait wait = new WebDriverWait(getDelegate(), timeout);
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+        ExpectedCondition<?> cond;
+        if (conditions == null || conditions.length == 0) {
+            cond = ExpectedConditions.presenceOfAllElementsLocatedBy(by);
+        } else {
+            cond = conditions.length == 1 ? conditions[0].apply(by) : ExpectedConditions.and(combine(by, conditions));
+        }
+        wait.until(cond);
         return andThen.apply(by);
     }
 
@@ -39,20 +55,22 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         return wait.until(giveResult(supplier)::apply);
     }
 
-    private static <T, R> Function<T, R> giveResult(Supplier<R> supplier) {
+    private static <R> ExpectedCondition<R> giveResult(Supplier<R> supplier) {
         return w -> supplier.get();
     }
 
-    public WebElement waitAndFindElement(By by) {
-        return waitAnd(getDelegate()::findElement, by);
+    public WebElement waitAndFindElement(By by,
+        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+        return waitAnd(getDelegate()::findElement, by, conditions);
     }
 
     public WebElement waitAndFindElement(SearchContext ctx, By by) {
         return waitFor(() -> ctx.findElement(by));
     }
 
-    public List<WebElement> waitAndFindElements(By by) {
-        return waitAnd(getDelegate()::findElements, by);
+    public List<WebElement> waitAndFindElements(By by,
+        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+        return waitAnd(getDelegate()::findElements, by, conditions);
     }
 
     public List<WebElement> waitAndFindElements(SearchContext ctx, By by) {
