@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
+import org.mycore.common.selenium.util.MCRExpectedConditions;
+import org.mycore.common.selenium.util.MCRExpectedConditions.DocumentReadyState;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -31,32 +31,26 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         this.timeout = timeout;
     }
 
-    public static ExpectedCondition<?> combine(By by,
-        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
-        return ExpectedConditions.and(Stream.of(conditions)
-            .map(c -> c.apply(by))
-            .toArray(ExpectedCondition[]::new));
-    }
-
-    public <R> R waitAnd(Function<By, R> andThen, By by,
-        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+    @SafeVarargs
+    public final <R> R waitAnd(Function<By, R> andThen, By by, Function<By, ExpectedCondition<?>>... conditions) {
         WebDriverWait wait = new WebDriverWait(getDelegate(), timeout);
         ExpectedCondition<?> cond;
         if (conditions == null || conditions.length == 0) {
             cond = ExpectedConditions.presenceOfAllElementsLocatedBy(by);
         } else {
-            cond = conditions.length == 1 ? conditions[0].apply(by) : ExpectedConditions.and(combine(by, conditions));
+            cond = conditions.length == 1 ? conditions[0].apply(by)
+                : ExpectedConditions.and(MCRExpectedConditions.combine(by, conditions));
         }
         wait.until(cond);
         return andThen.apply(by);
     }
 
-    public <R> R waitFor(Supplier<R> supplier) {
+    public final <R> R waitFor(Supplier<R> supplier) {
         WebDriverWait wait = new WebDriverWait(getDelegate(), timeout);
         return wait.until(giveResult(supplier)::apply);
     }
 
-    public <R> R waitFor(ExpectedCondition<R> condition){
+    public final <R> R waitFor(ExpectedCondition<R> condition) {
         WebDriverWait wait = new WebDriverWait(getDelegate(), timeout);
         return wait.until(condition);
     }
@@ -65,17 +59,17 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         return w -> supplier.get();
     }
 
-    public WebElement waitAndFindElement(By by,
-        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+    @SafeVarargs
+    public final WebElement waitAndFindElement(By by, Function<By, ExpectedCondition<?>>... conditions) {
         return waitAnd(getDelegate()::findElement, by, conditions);
     }
 
-    public WebElement waitAndFindElement(SearchContext ctx, By by) {
+    public final WebElement waitAndFindElement(SearchContext ctx, By by) {
         return waitFor(() -> ctx.findElement(by));
     }
 
-    public List<WebElement> waitAndFindElements(By by,
-        @SuppressWarnings("unchecked") Function<By, ExpectedCondition<?>>... conditions) {
+    @SafeVarargs
+    public final List<WebElement> waitAndFindElements(By by, Function<By, ExpectedCondition<?>>... conditions) {
         return waitAnd(getDelegate()::findElements, by, conditions);
     }
 
@@ -87,10 +81,8 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
 
     public boolean waitUntilPageIsLoaded(String title) {
         return waitFor(ExpectedConditions.and(
-                ExpectedConditions.titleContains(title),
-                webDriver ->
-                        ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
-        ));
+            ExpectedConditions.titleContains(title),
+            MCRExpectedConditions.documentReadyState(DocumentReadyState.complete)));
     }
 
 }
