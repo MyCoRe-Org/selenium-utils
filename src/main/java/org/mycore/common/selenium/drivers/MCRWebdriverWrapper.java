@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -55,6 +56,11 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         return wait.until(giveResult(supplier)::apply);
     }
 
+    public <R> R waitFor(ExpectedCondition<R> condition){
+        WebDriverWait wait = new WebDriverWait(getDelegate(), timeout);
+        return wait.until(condition);
+    }
+
     private static <R> ExpectedCondition<R> giveResult(Supplier<R> supplier) {
         return w -> supplier.get();
     }
@@ -77,6 +83,14 @@ public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
         return waitFor(() -> Optional.of(ctx.findElements(by))
             .filter(l -> !l.isEmpty())
             .orElse(null));
+    }
+
+    public boolean waitUntilPageIsLoaded(String title) {
+        return waitFor(ExpectedConditions.and(
+                ExpectedConditions.titleContains(title),
+                webDriver ->
+                        ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
+        ));
     }
 
 }
