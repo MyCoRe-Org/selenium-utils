@@ -3,10 +3,10 @@
   <parent>
     <artifactId>mycore-parent</artifactId>
     <groupId>org.mycore</groupId>
-    <version>30-SNAPSHOT</version>
+    <version>29</version>
   </parent>
   <artifactId>selenium-utils</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.4</version>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
   <packaging>jar</packaging>
@@ -16,9 +16,9 @@
     <url>https://mycore.atlassian.net/browse/SU</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/trunk</connection>
-    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/trunk</developerConnection>
-    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/trunk</url>
+    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/tags/selenium-utils-0.4</connection>
+    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/tags/selenium-utils-0.4</developerConnection>
+    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/tags/selenium-utils-0.4</url>
   </scm>
   <distributionManagement>
     <site>
