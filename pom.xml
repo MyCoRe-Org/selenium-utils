@@ -77,6 +77,12 @@
       <artifactId>selenium-server</artifactId>
       <version>${selenium.version}</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>jetty-repacked</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <build>
