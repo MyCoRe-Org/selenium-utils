@@ -99,7 +99,9 @@ public class MCRSeleniumTestBase {
 
     @AfterClass
     public static void tearDownClass() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     public MCRWebdriverWrapper getDriver() {
