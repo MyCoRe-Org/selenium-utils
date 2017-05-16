@@ -1,5 +1,6 @@
 package org.mycore.common.selenium.drivers;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -21,9 +22,11 @@ public class MCRChromeDriverFactory extends MCRDriverFactory {
 
     private ChromeOptions getChromeOptions(Locale locale) {
         String formattedLocale = locale.getCountry().isEmpty() ? locale.getLanguage()
-            : locale.getLanguage() + "-" + locale.getCountry().toLowerCase(Locale.ROOT);
+            : locale.getLanguage() + "-" + locale.getCountry().toLowerCase(Locale.ROOT) + "," + locale.getLanguage();
         ChromeOptions opts = new ChromeOptions();
-        opts.addArguments("--lang=" + formattedLocale);
+        HashMap<String, String> prefs = new HashMap<String, String>();
+        prefs.put("intl.accept_languages", formattedLocale);
+        opts.setExperimentalOption("prefs", prefs);
         return opts;
     }
 }
