@@ -10,7 +10,7 @@ public abstract class MCRDriverFactory {
 
     private static MCRDriverFactory driverFactoryInstance = getFactory();
 
-    private static final String DRIVER_PROVIDER = "DriverProvider";
+    public static final String DRIVER_PROVIDER = "DriverProvider";
 
     protected int dimX = Integer.parseInt(System.getProperty("dimX", "1280"));
 
@@ -19,21 +19,25 @@ public abstract class MCRDriverFactory {
     public static MCRDriverFactory getFactory() {
         if (driverFactoryInstance == null) {
             String driverName = System.getProperty("DriverProvider", null);
-            LOGGER.info("Search for driver in env variables");
-
-            if (driverName != null) {
-                LOGGER.info("Driver found in env variable : " + driverName);
-            } else {
-                driverName = System.getProperty(DRIVER_PROVIDER, "org.mycore.common.selenium.drivers.MCRFirefoxDriverFactory");
-            }
-            LOGGER.info("Load DriverProviderFactory!");
-            try {
-                driverFactoryInstance = (MCRDriverFactory) Class.forName(driverName).newInstance();
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                throw new RuntimeException("Error while getting driver!", e);
-            }
+            driverFactoryInstance = getDriverFactory(driverName);
         }
         return driverFactoryInstance;
+    }
+
+    static MCRDriverFactory getDriverFactory(String driverName) {
+        LOGGER.info("Search for driver in env variables");
+
+        if (driverName != null) {
+            LOGGER.info("Driver found in env variable : " + driverName);
+        } else {
+            driverName = System.getProperty(DRIVER_PROVIDER, MCREnvironmentDriverFactory.class.getName());
+        }
+        LOGGER.info("Load DriverProviderFactory!");
+        try {
+            return (MCRDriverFactory) Class.forName(driverName).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            throw new RuntimeException("Error while getting driver!", e);
+        }
     }
 
     public WebDriver getDriver() {
