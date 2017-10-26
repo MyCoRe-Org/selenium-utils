@@ -1,10 +1,11 @@
 /**
- * 
+ *
  */
 package org.mycore.common.selenium.drivers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,6 +19,8 @@ import org.openqa.selenium.WebDriver;
 public class MCREnvironmentDriverFactory extends MCRDriverFactory {
 
     public static String ENV_SELENIUM_BROWSER = "SELENIUM_BROWSER";
+
+    public static String ENV_SELENIUM_HEADLESS = "SELENIUM_HEADLESS";
 
     public static String ENV_SELENIUM_REMOTE_URL = "SELENIUM_REMOTE_URL";
 
@@ -66,7 +69,12 @@ public class MCREnvironmentDriverFactory extends MCRDriverFactory {
         if (isRemoteDriver && System.getProperty(MCRRemoteDriverFactory.DRIVER_URL_PROPERTY_NAME) == null) {
             System.setProperty(MCRRemoteDriverFactory.DRIVER_URL_PROPERTY_NAME, System.getenv(ENV_SELENIUM_REMOTE_URL));
         }
+        boolean headless = Optional.ofNullable(System.getenv(ENV_SELENIUM_HEADLESS))
+            .map(Boolean::parseBoolean)
+            .orElse(true);
+        setHeadless(headless);
         LogManager.getLogger().info("{}={}", ENV_SELENIUM_BROWSER, System.getenv(ENV_SELENIUM_BROWSER));
+        LogManager.getLogger().info("{}={}", ENV_SELENIUM_HEADLESS, System.getenv(ENV_SELENIUM_HEADLESS));
         LogManager.getLogger().info("{}={}", ENV_SELENIUM_REMOTE_URL, System.getenv(ENV_SELENIUM_REMOTE_URL));
     }
 
@@ -98,7 +106,9 @@ public class MCREnvironmentDriverFactory extends MCRDriverFactory {
 
     @Override
     public WebDriver getDriver() {
-        return MCRDriverFactory.getDriverFactory(getDriverFactory().getName()).getDriver();
+        MCRDriverFactory driverFactory = MCRDriverFactory.getDriverFactory(getDriverFactory().getName());
+        driverFactory.setHeadless(isHeadless());
+        return driverFactory.getDriver();
     }
 
 }

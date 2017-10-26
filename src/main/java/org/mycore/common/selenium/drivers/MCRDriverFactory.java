@@ -12,6 +12,8 @@ public abstract class MCRDriverFactory {
 
     public static final String DRIVER_PROVIDER = "DriverProvider";
 
+    protected boolean headless = false;
+
     protected int dimX = Integer.parseInt(System.getProperty("dimX", "1280"));
 
     protected int dimY = Integer.parseInt(System.getProperty("dimY", "1024"));
@@ -43,4 +45,13 @@ public abstract class MCRDriverFactory {
     public WebDriver getDriver() {
         return driverFactoryInstance.getDriver();
     }
+
+    public boolean isHeadless() {
+        return headless;
+    }
+
+    public void setHeadless(boolean headless) {
+        this.headless = headless;
+    }
+
 }
