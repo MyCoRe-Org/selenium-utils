@@ -1,25 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>mycore-parent</artifactId>
     <groupId>org.mycore</groupId>
+    <artifactId>mycore-parent</artifactId>
     <version>33-SNAPSHOT</version>
   </parent>
   <artifactId>selenium-utils</artifactId>
   <version>0.8-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
-  <packaging>jar</packaging>
   <url>http://www.mycore.de/generated/selenium-utils</url>
   <issueManagement>
-    <system>JIRA</system>
-    <url>https://mycore.atlassian.net/browse/SU</url>
+    <system>GitHub</system>
+    <url>https://github.com/MyCoRe-Org/selenium-utils/issues</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://server.mycore.de/svn/maven/selenium-utils/trunk</connection>
-    <developerConnection>scm:svn:https://server.mycore.de/svn/maven/selenium-utils/trunk</developerConnection>
-    <url>http://www.mycore.de/viewvc/viewvc.cgi/maven/selenium-utils/trunk</url>
+    <connection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</connection>
+    <developerConnection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</developerConnection>
+    <url>https://github.com/MyCoRe-Org/selenium-utils</url>
+    <tag>HEAD</tag>
   </scm>
+  <properties>
+    <java.target.version>1.8</java.target.version>
+    <selenium.version>3.6.0</selenium.version>
+  </properties>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
   <distributionManagement>
     <site>
       <id>MyCoRe HQ</id>
@@ -27,42 +45,16 @@
       <url>scp://server.mycore.de/mcr/mycore.de/generated/selenium-utils</url>
     </site>
   </distributionManagement>
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Central Repository</name>
-      <url>https://repo.maven.apache.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>MyCoRe HQ</id>
-      <url>http://artifactory.mycore.de/mycore-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>MyCoRe HQ Snapshots</id>
-      <url>http://artifactory.mycore.de/mycore-snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  <properties>
-    <selenium.version>3.6.0</selenium.version>
-  </properties>
   <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>23.0</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -70,45 +62,34 @@
       <version>2.9.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.9.1</version>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>${selenium.version}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-firefox-driver</artifactId>
       <version>${selenium.version}</version>
-      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-remote-driver</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-safari-driver</artifactId>
+      <version>${selenium.version}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-support</artifactId>
       <version>${selenium.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-server</artifactId>
-      <version>${selenium.version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>jetty-repacked</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

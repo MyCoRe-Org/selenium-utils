@@ -1,5 +1,6 @@
 package org.mycore.common.selenium.util;
 
+import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -39,7 +40,8 @@ public class MCRExpectedConditions {
             @Override
             public String toString() {
                 return String
-                    .format("document.readyState to be \"%s\". Current readyState: \"%s\"", state, readyState);
+                    .format(Locale.ENGLISH, "document.readyState to be \"%s\". Current readyState: \"%s\"", state,
+                        readyState);
             }
         };
     }
