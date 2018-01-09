@@ -2,6 +2,7 @@ package org.mycore.common.selenium.drivers;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,7 @@ public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
         WebDriver remoteDriver = null;
         try {
             String driverLocation = System.getProperty(DRIVER_URL_PROPERTY_NAME, DEFAULT_URL);
-            LOGGER.info(String.format("%s is : %s", DRIVER_URL_PROPERTY_NAME, driverLocation));
+            LOGGER.info(String.format(Locale.ENGLISH,"%s is : %s", DRIVER_URL_PROPERTY_NAME, driverLocation));
             remoteDriver = new RemoteWebDriver(new URL(driverLocation), getCapabilities());
         } catch (MalformedURLException e) {
             LOGGER.error("error while resolving firefox driver location", e);
