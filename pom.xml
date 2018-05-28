@@ -92,4 +92,63 @@
       <version>${selenium.version}</version>
     </dependency>
   </dependencies>
+  <developers>
+    <developer>
+      <id>mcrkrebs</id>
+      <name>Kathleen Neumann</name>
+      <email>Kathleen.Neumann (at) gbv.de</email>
+      <organization>Verbundzentrale des GBV (VZG), Document Management System</organization>
+      <organizationUrl>http://www.gbv.de</organizationUrl>
+      <roles>
+        <role>coordination</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mcrmibue</id>
+      <name>Michel Büchner</name>
+      <email>michel.buechner (at) uni-jena.de</email>
+      <organization>Friedrich-Schiller-Universität Jena, Thüringer Universitäts- und Landesbibliothek</organization>
+      <organizationUrl>http://www.thulb.uni-jena.de/</organizationUrl>
+      <roles>
+        <role>programmer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mcrshofm</id>
+      <name>Sebastian Hofmann</name>
+      <email>vo62xat (at) uni-jena.de</email>
+      <organization>Friedrich-Schiller-Universität Jena, Thüringer Universitäts- und Landesbibliothek</organization>
+      <organizationUrl>http://www.thulb.uni-jena.de/</organizationUrl>
+      <roles>
+        <role>programmer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mcrsroeh</id>
+      <name>Sebastian Röher</name>
+      <email>sebastian.roeher (at) thulb.uni-jena.de</email>
+      <organization>Friedrich-Schiller-Universität Jena, Thüringer Universitäts- und Landesbibliothek</organization>
+      <organizationUrl>http://www.thulb.uni-jena.de/</organizationUrl>
+      <roles>
+        <role>programmer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mcrtchef</id>
+      <name>Thomas Scheffler</name>
+      <email>thomas.scheffler (at) uni-jena.de</email>
+      <organization>Friedrich-Schiller-Universität Jena, Thüringer Universitäts- und Landesbibliothek</organization>
+      <organizationUrl>http://www.thulb.uni-jena.de/</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
 </project>
