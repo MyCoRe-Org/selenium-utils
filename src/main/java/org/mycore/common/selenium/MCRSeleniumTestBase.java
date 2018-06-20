@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,7 +63,8 @@ public class MCRSeleniumTestBase {
                 try {
                     if (e != null) {
                         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            PrintWriter pw = new PrintWriter(baos);) {
+                            OutputStreamWriter w = new OutputStreamWriter(baos, StandardCharsets.UTF_8);
+                            PrintWriter pw = new PrintWriter(w);) {
                             pw.println(testURL);
                             e.printStackTrace(pw);
                             writeToFile(baos.toByteArray(), new File(failedTestDirectory, "error.txt"), "exception");
