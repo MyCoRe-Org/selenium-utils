@@ -1,5 +1,6 @@
 package org.mycore.common.selenium;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,36 +59,36 @@ public class MCRSeleniumTestBase {
                     child = description.getMethodName();
                 File failedTestDirectory = new File(failedTestClassDirectory, child);
                 failedTestDirectory.mkdirs();
-                if (e != null) {
-                    File error = new File(failedTestDirectory, "error.txt");
-                    try (FileOutputStream fout = new FileOutputStream(error);
-                        OutputStreamWriter osw = new OutputStreamWriter(fout, "UTF-8");
-                        PrintWriter pw = new PrintWriter(osw)) {
-                        pw.println(testURL);
-                        e.printStackTrace(pw);
-                    } catch (IOException e1) {
-                        throw new RuntimeException(e1);
+                try {
+                    if (e != null) {
+                        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            PrintWriter pw = new PrintWriter(baos);) {
+                            pw.println(testURL);
+                            e.printStackTrace(pw);
+                            writeToFile(baos.toByteArray(), new File(failedTestDirectory, "error.txt"), "exception");
+                        }
                     }
-                }
-                File screenshot = new File(failedTestDirectory, "screenshot.png");
-                try (FileOutputStream fout = new FileOutputStream(screenshot)) {
-                    System.out.println("Saving screenshot to " + screenshot.getAbsolutePath());
-                    fout.write(screenShot);
-                } catch (IOException e1) {
-                    throw new RuntimeException(e1);
-                }
-                File html = new File(failedTestDirectory, "dom.html");
-                try (FileOutputStream fout = new FileOutputStream(html);
-                    OutputStreamWriter osw = new OutputStreamWriter(fout, "UTF-8")) {
-                    System.out.println("Saving DOM to " + html.getAbsolutePath());
-                    osw.write(sourceHTML);
-                } catch (IOException e1) {
-                    throw new RuntimeException(e1);
+                    writeToFile(screenShot, new File(failedTestDirectory, "screenshot.png"), "screenshot");
+                    writeToFile(sourceHTML.getBytes(Charset.defaultCharset()),
+                        new File(failedTestDirectory, "dom.html"), "DOM");
+                } catch (IOException ioe) {
+                    ioe.printStackTrace(System.err);
                 }
             }
             super.failed(e, description);
         }
     };
+
+    private static void writeToFile(byte[] bytes, File fileName, String type) throws IOException {
+        if (bytes == null || bytes.length == 0) {
+            System.err.println("Could not save " + type + ". No data given.");
+            return;
+        }
+        try (FileOutputStream fout = new FileOutputStream(fileName)) {
+            System.out.println("Saving " + type + " to " + fileName.getAbsolutePath());
+            fout.write(bytes);
+        }
+    }
 
     @BeforeClass
     public static void setUpClass() {
