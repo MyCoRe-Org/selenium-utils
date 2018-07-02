@@ -4,10 +4,10 @@
   <parent>
     <groupId>org.mycore</groupId>
     <artifactId>mycore-parent</artifactId>
-    <version>37</version>
+    <version>38-SNAPSHOT</version>
   </parent>
   <artifactId>selenium-utils</artifactId>
-  <version>0.9</version>
+  <version>0.10-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
@@ -20,7 +20,7 @@
     <connection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</connection>
     <developerConnection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</developerConnection>
     <url>https://github.com/MyCoRe-Org/selenium-utils</url>
-    <tag>v0.9</tag>
+    <tag>HEAD</tag>
   </scm>
   <properties>
     <java.target.version>1.8</java.target.version>
