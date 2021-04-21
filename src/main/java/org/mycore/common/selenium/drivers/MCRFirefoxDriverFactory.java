@@ -10,10 +10,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class MCRFirefoxDriverFactory extends MCRDriverFactory {
 
     @Override
     public WebDriver getDriver() {
+        WebDriverManager.firefoxdriver().setup();
+
         FirefoxProfile profile = getFirefoxProfile(Locale.GERMANY);
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(profile);
@@ -28,7 +32,7 @@ public class MCRFirefoxDriverFactory extends MCRDriverFactory {
     private FirefoxProfile getFirefoxProfile(Locale locale) {
         FirefoxProfile profile = new FirefoxProfile();
         String formattedLocale = locale.getCountry().isEmpty() ? locale.getLanguage()
-                : locale.getLanguage() + "-" + locale.getCountry().toLowerCase(Locale.ROOT);
+            : locale.getLanguage() + "-" + locale.getCountry().toLowerCase(Locale.ROOT);
         profile.setPreference("intl.accept_languages", formattedLocale);
         return profile;
     }
