@@ -10,10 +10,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class MCRChromeDriverFactory extends MCRDriverFactory {
 
     @Override
     public WebDriver getDriver() {
+        WebDriverManager.chromedriver().setup();
+        
         ChromeOptions profile = getChromeOptions(Locale.GERMANY);
         ChromeDriver chromeDriver = new ChromeDriver(profile);
         chromeDriver.manage().window().setSize(new Dimension(dimX, dimY));
