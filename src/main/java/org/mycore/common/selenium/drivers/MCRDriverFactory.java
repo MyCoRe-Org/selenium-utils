@@ -14,6 +14,8 @@ public abstract class MCRDriverFactory {
 
     protected boolean headless = false;
 
+    protected boolean debugEnabled = false;
+
     protected int dimX = Integer.parseInt(System.getProperty("dimX", "1280"));
 
     protected int dimY = Integer.parseInt(System.getProperty("dimY", "1024"));
@@ -52,6 +54,14 @@ public abstract class MCRDriverFactory {
 
     public void setHeadless(boolean headless) {
         this.headless = headless;
+    }
+
+    public boolean isDebugEnabled() {
+        return debugEnabled;
+    }
+
+    public void setDebugEnabled(boolean debugEnabled) {
+        this.debugEnabled = debugEnabled;
     }
 
 }

@@ -3,6 +3,7 @@
  */
 package org.mycore.common.selenium.drivers;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -24,11 +25,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class MCRWebdriverWrapper extends MCRDelegatingWebDriver {
 
-    private int timeout;
+    private Duration timeout;
 
     public MCRWebdriverWrapper(RemoteWebDriver delegate, int timeout) {
         super(delegate);
-        this.timeout = timeout;
+        this.timeout = Duration.ofSeconds(timeout);
     }
 
     @SafeVarargs

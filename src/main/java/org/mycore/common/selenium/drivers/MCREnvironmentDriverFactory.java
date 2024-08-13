@@ -22,6 +22,8 @@ public class MCREnvironmentDriverFactory extends MCRDriverFactory {
 
     public static String ENV_SELENIUM_HEADLESS = "SELENIUM_HEADLESS";
 
+    public static String ENV_SELENIUM_DEBUG = "SELENIUM_DEBUG";
+
     public static String ENV_SELENIUM_REMOTE_URL = "SELENIUM_REMOTE_URL";
 
     private Map<Browser, Class<? extends MCRDriverFactory>> localMap;
@@ -63,7 +65,6 @@ public class MCREnvironmentDriverFactory extends MCRDriverFactory {
         remoteMap.put(Browser.FIREFOX, MCRRemoteFirefoxDriverFactory.class);
         remoteMap.put(Browser.CHROME, MCRRemoteChromeDriverFactory.class);
         remoteMap.put(Browser.SAFARI, MCRRemoteSafariDriverFactory.class);
-        remoteMap.put(Browser.IE, MCRRemoteIEDriverFactory.class);
         String remoteURL = System.getenv(ENV_SELENIUM_REMOTE_URL);
         this.isRemoteDriver = remoteURL != null && remoteURL.length() > 0;
         if (isRemoteDriver && System.getProperty(MCRRemoteDriverFactory.DRIVER_URL_PROPERTY_NAME) == null) {
@@ -73,8 +74,13 @@ public class MCREnvironmentDriverFactory extends MCRDriverFactory {
             .map(Boolean::parseBoolean)
             .orElse(true);
         setHeadless(headless);
+        boolean debug = Optional.ofNullable(System.getenv(ENV_SELENIUM_DEBUG))
+            .map(Boolean::parseBoolean)
+            .orElse(false);
+        setDebugEnabled(debug);
         LogManager.getLogger().info("{}={}", ENV_SELENIUM_BROWSER, System.getenv(ENV_SELENIUM_BROWSER));
         LogManager.getLogger().info("{}={}", ENV_SELENIUM_HEADLESS, System.getenv(ENV_SELENIUM_HEADLESS));
+        LogManager.getLogger().info("{}={}", ENV_SELENIUM_DEBUG, System.getenv(ENV_SELENIUM_DEBUG));
         LogManager.getLogger().info("{}={}", ENV_SELENIUM_REMOTE_URL, System.getenv(ENV_SELENIUM_REMOTE_URL));
     }
 

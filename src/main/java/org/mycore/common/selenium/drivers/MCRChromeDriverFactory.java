@@ -33,7 +33,7 @@ public class MCRChromeDriverFactory extends MCRDriverFactory {
         prefs.put("intl.accept_languages", formattedLocale);
         opts.setExperimentalOption("prefs", prefs);
         LogManager.getLogger().info("is headless: {}", isHeadless());
-        opts.setHeadless(isHeadless());
+        opts.addArguments("--headless");
         opts.addArguments("--force-color-profile=srgb");//makes screenshots analyzable
         return opts;
     }
