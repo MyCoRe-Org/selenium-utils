@@ -22,6 +22,7 @@ public class MCRFirefoxDriverFactory extends MCRDriverFactory {
 
         FirefoxProfile profile = getFirefoxProfile(Locale.GERMANY);
         FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.configureFromEnv();
         firefoxOptions.setProfile(profile);
         configureLogging(firefoxOptions);
 
