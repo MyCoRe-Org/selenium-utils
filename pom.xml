@@ -25,7 +25,7 @@
   <properties>
     <java.target.version>17</java.target.version>
     <selenium.version>4.25.0</selenium.version>
-    <webdivermgr.version>5.9.2</webdivermgr.version>
+    <webdivermgr.version>6.1.0</webdivermgr.version>
   </properties>
   <repositories>
     <repository>
