@@ -2,6 +2,7 @@ package org.mycore.common.selenium.drivers;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +33,7 @@ public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
             LOGGER.error("error while resolving firefox driver location", e);
         }
         remoteDriver.manage().window().setSize(new Dimension(dimX, dimY));
-        remoteDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        remoteDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         ((RemoteWebDriver) remoteDriver).setFileDetector(new LocalFileDetector());
         return remoteDriver;
     }

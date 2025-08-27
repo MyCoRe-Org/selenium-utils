@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class MCRDriverFactory {
 
     private static final Logger LOGGER = LogManager.getLogger(MCRDriverFactory.class);
@@ -38,8 +40,9 @@ public abstract class MCRDriverFactory {
         }
         LOGGER.info("Load DriverProviderFactory!");
         try {
-            return (MCRDriverFactory) Class.forName(driverName).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            return (MCRDriverFactory) Class.forName(driverName).getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException |
+            InvocationTargetException e) {
             throw new RuntimeException("Error while getting driver!", e);
         }
     }
