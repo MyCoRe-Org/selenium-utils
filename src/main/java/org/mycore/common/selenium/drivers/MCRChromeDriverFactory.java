@@ -1,5 +1,6 @@
 package org.mycore.common.selenium.drivers;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ public class MCRChromeDriverFactory extends MCRDriverFactory {
         ChromeOptions profile = getChromeOptions(Locale.GERMANY);
         ChromeDriver chromeDriver = new ChromeDriver(profile);
         chromeDriver.manage().window().setSize(new Dimension(dimX, dimY));
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return chromeDriver;
     }
 

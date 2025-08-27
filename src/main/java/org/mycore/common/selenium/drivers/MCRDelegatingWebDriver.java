@@ -225,4 +225,9 @@ public class MCRDelegatingWebDriver
     public void requireDownloadsEnabled(Capabilities capabilities) {
         delegate.requireDownloadsEnabled(capabilities);
     }
+
+    @Override
+    public boolean isDownloadsEnabled() {
+        return delegate.isDownloadsEnabled();
+    }
 }
