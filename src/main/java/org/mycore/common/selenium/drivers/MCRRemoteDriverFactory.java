@@ -1,11 +1,5 @@
 package org.mycore.common.selenium.drivers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
@@ -13,6 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Duration;
 
 public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
 
@@ -27,9 +26,9 @@ public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
         WebDriver remoteDriver = null;
         try {
             String driverLocation = System.getProperty(DRIVER_URL_PROPERTY_NAME, DEFAULT_URL);
-            LOGGER.info(String.format(Locale.ENGLISH,"%s is : %s", DRIVER_URL_PROPERTY_NAME, driverLocation));
-            remoteDriver = new RemoteWebDriver(new URL(driverLocation), getCapabilities());
-        } catch (MalformedURLException e) {
+            LOGGER.info("{} is : {}", DRIVER_URL_PROPERTY_NAME, driverLocation);
+            remoteDriver = new RemoteWebDriver((new URI(driverLocation)).toURL(), getCapabilities());
+        } catch (MalformedURLException | URISyntaxException e) {
             LOGGER.error("error while resolving firefox driver location", e);
         }
         remoteDriver.manage().window().setSize(new Dimension(dimX, dimY));

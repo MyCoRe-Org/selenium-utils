@@ -20,7 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -141,10 +142,10 @@ public class MCRSeleniumTestBase {
             if (canonicalHostName == null) {
                 LOGGER.info("RemoteDriverURL is set but not HostName Try to detect hostname of this machine.");
                 try {
-                    URL url = new URL(driverURL);
+                    URL url = URI.create(driverURL).toURL();
                     canonicalHostName = MCRSeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
                         .getCanonicalHostName();
-                    LOGGER.info("hostname is : " + canonicalHostName);
+                    LOGGER.info("hostname is : {}", canonicalHostName);
 
                 } catch (IOException e) {
                     Assert.fail("could not detect hostname!");
@@ -155,8 +156,9 @@ public class MCRSeleniumTestBase {
 
         String BASE_URL;
         try {
-            BASE_URL = new URL(System.getProperty("UrlScheme", "http://"), hostName, baseUrlPort, "").toString();
-        } catch (MalformedURLException e) {
+            BASE_URL = new URI(System.getProperty("UrlScheme", "http://"), null, hostName, baseUrlPort, null, null,
+                "").toString();
+        } catch (URISyntaxException e) {
             BASE_URL = "http://" + hostName + ":" + baseUrlPort;
         }
 

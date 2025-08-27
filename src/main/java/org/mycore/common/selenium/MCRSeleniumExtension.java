@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -158,10 +159,10 @@ public class MCRSeleniumExtension implements BeforeAllCallback, AfterAllCallback
             if (canonicalHostName == null) {
                 LOGGER.info("RemoteDriverURL is set but not HostName Try to detect hostname of this machine.");
                 try {
-                    URL url = new URL(driverURL);
+                    URL url = URI.create(driverURL).toURL();
                     canonicalHostName = MCRSeleniumTestUtils.getLocalAdress(url.getHost(), url.getPort())
                         .getCanonicalHostName();
-                    LOGGER.info("hostname is : " + canonicalHostName);
+                    LOGGER.info("hostname is : {}", canonicalHostName);
                 } catch (IOException e) {
                     throw new RuntimeException("could not detect hostname!", e);
                 }
@@ -171,8 +172,9 @@ public class MCRSeleniumExtension implements BeforeAllCallback, AfterAllCallback
 
         String baseUrl;
         try {
-            baseUrl = new URL(System.getProperty("UrlScheme", "http://"), hostName, baseUrlPort, "").toString();
-        } catch (MalformedURLException e) {
+            baseUrl = new URI(System.getProperty("UrlScheme", "http://"), null, hostName, baseUrlPort, null, null,
+                "").toString();
+        } catch (URISyntaxException e) {
             baseUrl = "http://" + hostName + ":" + baseUrlPort;
         }
 
