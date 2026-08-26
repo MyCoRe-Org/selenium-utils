@@ -9,9 +9,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.GeckoDriverService;
 
-import java.time.Duration;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -37,7 +35,7 @@ public class MCRFirefoxDriverFactory extends MCRDriverFactory {
         gecko.sendOutputTo(System.err);
         FirefoxDriver firefoxDriver = new FirefoxDriver(gecko, firefoxOptions);
         firefoxDriver.manage().window().setSize(new Dimension(dimX, dimY));
-        firefoxDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        configureTimeouts(firefoxDriver);
         return firefoxDriver;
     }
 

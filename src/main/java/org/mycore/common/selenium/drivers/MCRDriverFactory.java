@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 
 public abstract class MCRDriverFactory {
 
@@ -13,6 +14,21 @@ public abstract class MCRDriverFactory {
     private static MCRDriverFactory driverFactoryInstance = getFactory();
 
     public static final String DRIVER_PROVIDER = "DriverProvider";
+
+    /**
+     * System property to set the implicit wait of every driver in milliseconds. Defaults to
+     * {@link #DEFAULT_IMPLICIT_WAIT_MILLIS}.
+     * <p>
+     * Selenium advises against mixing implicit and explicit waits: an implicit wait makes
+     * {@link WebDriver#findElements(org.openqa.selenium.By)} block in the browser until the timeout expires, which
+     * stalls the explicit conditions used by
+     * {@link MCRWebdriverWrapper#waitAndFindElement(org.openqa.selenium.By, java.util.function.Function...)}. Tests
+     * that call <code>findElement</code> directly instead of going through the wrapper may still rely on it and can
+     * restore the former behaviour by setting this property to <code>10000</code>.
+     */
+    public static final String IMPLICIT_WAIT_PROPERTY = "MCR.Selenium.ImplicitWait";
+
+    public static final long DEFAULT_IMPLICIT_WAIT_MILLIS = 0;
 
     protected boolean headless = false;
 
@@ -49,6 +65,19 @@ public abstract class MCRDriverFactory {
 
     public WebDriver getDriver() {
         return driverFactoryInstance.getDriver();
+    }
+
+    public static Duration getImplicitWaitTimeout() {
+        return Duration.ofMillis(Long.getLong(IMPLICIT_WAIT_PROPERTY, DEFAULT_IMPLICIT_WAIT_MILLIS));
+    }
+
+    /**
+     * Applies the implicit wait configured via {@link #IMPLICIT_WAIT_PROPERTY} to the given driver.
+     */
+    protected static void configureTimeouts(WebDriver driver) {
+        Duration implicitWait = getImplicitWaitTimeout();
+        LOGGER.info("Setting implicit wait to {}", implicitWait);
+        driver.manage().timeouts().implicitlyWait(implicitWait);
     }
 
     public boolean isHeadless() {

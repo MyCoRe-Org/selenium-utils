@@ -11,7 +11,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Duration;
 
 public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
 
@@ -32,7 +31,7 @@ public abstract class MCRRemoteDriverFactory extends MCRDriverFactory {
             LOGGER.error("error while resolving firefox driver location", e);
         }
         remoteDriver.manage().window().setSize(new Dimension(dimX, dimY));
-        remoteDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        configureTimeouts(remoteDriver);
         ((RemoteWebDriver) remoteDriver).setFileDetector(new LocalFileDetector());
         return remoteDriver;
     }
