@@ -7,7 +7,7 @@
     <version>59</version>
   </parent>
   <artifactId>selenium-utils</artifactId>
-  <version>0.12</version>
+  <version>0.13-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Selenium WebDriver Utils</name>
   <description>Base Classes for Selenium-WebDriver Tests</description>
@@ -19,8 +19,8 @@
   <scm>
     <connection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</connection>
     <developerConnection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</developerConnection>
-    <url>https://github.com/MyCoRe-Org/selenium-utils/tree/v0.12</url>
-    <tag>v0.12</tag>
+    <url>https://github.com/MyCoRe-Org/selenium-utils</url>
+    <tag>HEAD</tag>
   </scm>
   <properties>
     <java.target.version>21</java.target.version>
