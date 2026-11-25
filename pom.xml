@@ -19,7 +19,7 @@
   <scm>
     <connection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</connection>
     <developerConnection>scm:git:https://github.com/MyCoRe-Org/selenium-utils.git</developerConnection>
-    <url>https://github.com/MyCoRe-Org/selenium-utils</url>
+    <url>https://github.com/MyCoRe-Org/selenium-utils/tree/v0.12</url>
     <tag>HEAD</tag>
   </scm>
   <properties>
